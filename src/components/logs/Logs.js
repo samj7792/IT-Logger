@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import LogItem from './LogItem';
 import Preloader from '../layout/Preloader';
+import PropTypes from 'prop-types';
+import { getLogs } from '../../actions/logActions';
 
-const Logs = () => {
-  const [logs, setLogs] = useState([]); // initially an empty array
-  const [loading, setLoading] = useState(false);
-
+const Logs = ({ log: { logs, loading }, getLogs }) => {
   // calls getLogs
   useEffect(() => {
     getLogs();
     // eslint-disable-next-line
   }, []);
 
-  const getLogs = async () => {
-    setLoading(true); // state set to true as logs are being found
-    const res = await fetch('/logs'); // fetching logs from the server, the "proxy" in our package.json makes it so we don't have to type http://localhost:5000/logs
-    const data = await res.json(); // convert the response to json
-
-    setLogs(data); // add the data to the state
-    setLoading(false); // change state for loading back to false
-  };
-
   // when loading is true, show on the page
-  if (loading) {
+  if (loading || logs === null) {
     return <Preloader />;
   }
 
@@ -40,4 +31,12 @@ const Logs = () => {
   );
 };
 
-export default Logs;
+Logs.propTypes = {
+  log: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  log: state.log
+});
+
+export default connect(mapStateToProps, { getLogs })(Logs);

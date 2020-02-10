@@ -1,4 +1,4 @@
-import { GET_LOGS, SET_LOADING, LOGS_ERROR } from './types';
+import { GET_LOGS, SET_LOADING, LOGS_ERROR, ADD_LOG } from './types';
 
 // export const getLogs = () => {
 //   return async (dispatch) => {
@@ -15,6 +15,7 @@ import { GET_LOGS, SET_LOADING, LOGS_ERROR } from './types';
 // }
 
 // more simply done
+// Get Logs from server
 export const getLogs = () => async dispatch => {
   try {
     // Call setLoading to make loading true
@@ -31,6 +32,36 @@ export const getLogs = () => async dispatch => {
     });
   } catch (err) {
     // If we get an error dispathc action.type as LOGS_ERROR and the payload as the error data
+    dispatch({
+      type: LOGS_ERROR,
+      payload: err.response.data
+    });
+  }
+};
+
+// Add new log
+export const addLog = log => async dispatch => {
+  try {
+    // Call setLoading to make loading true
+    setLoading();
+
+    // post our new log
+    const res = await fetch('/logs', {
+      method: 'POST',
+      body: JSON.stringify(log),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await res.json();
+
+    // dispatch action.type as ADD_LOG and action.payload as the data received
+    dispatch({
+      type: ADD_LOG,
+      payload: data
+    });
+  } catch (err) {
+    // If we get an error dispatch action.type as LOGS_ERROR and the payload as the error data
     dispatch({
       type: LOGS_ERROR,
       payload: err.response.data

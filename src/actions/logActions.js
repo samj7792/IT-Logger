@@ -1,4 +1,10 @@
-import { GET_LOGS, SET_LOADING, LOGS_ERROR, ADD_LOG } from './types';
+import {
+  GET_LOGS,
+  SET_LOADING,
+  LOGS_ERROR,
+  ADD_LOG,
+  DELETE_LOG
+} from './types';
 
 // export const getLogs = () => {
 //   return async (dispatch) => {
@@ -62,6 +68,31 @@ export const addLog = log => async dispatch => {
     });
   } catch (err) {
     // If we get an error dispatch action.type as LOGS_ERROR and the payload as the error data
+    dispatch({
+      type: LOGS_ERROR,
+      payload: err.response.data
+    });
+  }
+};
+
+// Delete log from server
+export const deleteLog = id => async dispatch => {
+  try {
+    // Call setLoading to make loading true
+    setLoading();
+
+    // We dont need to store any variable so simply await fetch()
+    await fetch(`/logs/${id}`, {
+      method: 'DELETE'
+    });
+
+    // dispatch action.type as DELETE_LOG and action.payload as the id
+    dispatch({
+      type: DELETE_LOG,
+      payload: id
+    });
+  } catch (err) {
+    // If we get an error dispathc action.type as LOGS_ERROR and the payload as the error data
     dispatch({
       type: LOGS_ERROR,
       payload: err.response.data

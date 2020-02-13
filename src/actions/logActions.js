@@ -5,7 +5,6 @@ import {
   ADD_LOG,
   DELETE_LOG,
   SET_CURRENT,
-  CLEAR_CURRENT,
   UPDATE_LOG
 } from './types';
 
@@ -138,13 +137,6 @@ export const setCurrent = log => {
   return {
     type: SET_CURRENT,
     payload: log
-  };
-};
-
-// Clear current log
-export const clearCurrent = () => {
-  return {
-    type: CLEAR_CURRENT
   };
 };
 

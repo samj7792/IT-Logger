@@ -8,11 +8,11 @@
       "id": 1
     },
     {
-      "message": "Hard drive failed in server 002",
-      "attention": true,
-      "tech": "Sara Wilson",
-      "date": "2020-02-10T16:44:21.762Z",
-      "id": 2
+      "id": 2,
+      "message": "Fixed hard drive in server 002",
+      "attention": false,
+      "tech": "John Doe",
+      "date": "2020-02-12T15:19:16.650Z"
     },
     {
       "message": "1122 wireless down",
@@ -22,11 +22,11 @@
       "id": 3
     },
     {
-      "message": "Server 005 needs maintenance",
-      "attention": true,
-      "tech": "John Doe",
-      "date": "2020-02-10T16:54:39.194Z",
-      "id": 4
+      "id": 4,
+      "message": "Server 005 is up to date",
+      "attention": false,
+      "tech": "Sam Smith",
+      "date": "2020-02-12T16:29:10.219Z"
     }
   ],
   "techs": [

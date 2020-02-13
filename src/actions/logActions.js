@@ -4,8 +4,9 @@ import {
   LOGS_ERROR,
   ADD_LOG,
   DELETE_LOG,
-  SET_CURRENT,
-  UPDATE_LOG
+  UPDATE_LOG,
+  SEARCH_LOGS,
+  SET_CURRENT
 } from './types';
 
 // export const getLogs = () => {
@@ -125,6 +126,30 @@ export const updateLog = log => async dispatch => {
     });
   } catch (err) {
     // If we get an error dispatch action.type as LOGS_ERROR and the payload as the error data
+    dispatch({
+      type: LOGS_ERROR,
+      payload: err.response.data
+    });
+  }
+};
+
+// Search logs
+export const searchLogs = text => async dispatch => {
+  try {
+    // Call setLoading to make loading true
+    setLoading();
+
+    // Make a request to logs with a query of text
+    const res = await fetch(`/logs?q=${text}`);
+    const data = await res.json();
+
+    // dispatch action.type as SEARCH_LOGS and action.payload as the data received
+    dispatch({
+      type: SEARCH_LOGS,
+      payload: data
+    });
+  } catch (err) {
+    // If we get an error dispathc action.type as LOGS_ERROR and the payload as the error data
     dispatch({
       type: LOGS_ERROR,
       payload: err.response.data

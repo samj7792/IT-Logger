@@ -60,6 +60,31 @@ export const addTech = tech => async dispatch => {
   }
 };
 
+// Delete a tech
+export const deleteTech = id => async dispatch => {
+  try {
+    // Call setLoading to make loading true
+    setLoading();
+
+    // We dont need to store any variable so simply await fetch()
+    await fetch(`/techs/${id}`, {
+      method: 'DELETE'
+    });
+
+    // dispatch action.type as DELETE_LOG and action.payload as the id
+    dispatch({
+      type: DELETE_TECH,
+      payload: id
+    });
+  } catch (err) {
+    // If we get an error dispatch action.type as TECHS_ERROR and the payload as the error data
+    dispatch({
+      type: TECHS_ERROR,
+      payload: err.response.statusText
+    });
+  }
+};
+
 // Set loading to true
 export const setLoading = () => {
   return {

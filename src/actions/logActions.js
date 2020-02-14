@@ -43,7 +43,7 @@ export const getLogs = () => async dispatch => {
     // If we get an error dispathc action.type as LOGS_ERROR and the payload as the error data
     dispatch({
       type: LOGS_ERROR,
-      payload: err.response.data
+      payload: err.response.statusText
     });
   }
 };
@@ -73,7 +73,7 @@ export const addLog = log => async dispatch => {
     // If we get an error dispatch action.type as LOGS_ERROR and the payload as the error data
     dispatch({
       type: LOGS_ERROR,
-      payload: err.response.data
+      payload: err.response.statusText
     });
   }
 };
@@ -98,7 +98,7 @@ export const deleteLog = id => async dispatch => {
     // If we get an error dispathc action.type as LOGS_ERROR and the payload as the error data
     dispatch({
       type: LOGS_ERROR,
-      payload: err.response.data
+      payload: err.response.statusText
     });
   }
 };
@@ -128,7 +128,7 @@ export const updateLog = log => async dispatch => {
     // If we get an error dispatch action.type as LOGS_ERROR and the payload as the error data
     dispatch({
       type: LOGS_ERROR,
-      payload: err.response.data
+      payload: err.response.statusText
     });
   }
 };
@@ -152,7 +152,7 @@ export const searchLogs = text => async dispatch => {
     // If we get an error dispathc action.type as LOGS_ERROR and the payload as the error data
     dispatch({
       type: LOGS_ERROR,
-      payload: err.response.data
+      payload: err.response.statusText
     });
   }
 };
